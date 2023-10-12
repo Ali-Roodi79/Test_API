@@ -15,11 +15,12 @@ class APIOperation {
   }
 
   Future<http.Response> fetchAll(String url) {
-    return http.get(Uri.parse(url));
+    return http.get(Uri.parse(url),headers: <String, String>{
+      "Content-Type": "application/json; charset=UTF-8"
+    },);
   }
 
-  Future<http.Response> put(String url, Map<String, dynamic> body,
-      {Map<String, dynamic> headers = const {}}) {
+  Future<http.Response> put(String url, Map<String, dynamic> body, {Map<String, dynamic> headers = const {}}) {
     return http.put(
       Uri.parse(url),
       headers: <String, String>{

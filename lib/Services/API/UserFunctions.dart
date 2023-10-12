@@ -7,7 +7,7 @@ class UserFunctions extends APIOperation {
   bool status = false;
 
   Future addUser(User user) async {
-    Response response = await super.post("https://localhost:44362/api/loginform", user.toMap());
+    Response response = await super.post("https://localhost:7197/api/loginform", user.toMap());
     if (response.statusCode == 200) {
       status = true;
     } else {
@@ -17,7 +17,7 @@ class UserFunctions extends APIOperation {
   }
 
   Future updateUser(int id, User user) async {
-    Response response = await super.put("https://localhost:44362/api/loginform/$id", user.toMap());
+    Response response = await super.put("https://localhost:7197/api/loginform/$id", user.toMap());
     if (response.statusCode == 200) {
       status = true;
     } else {
@@ -27,7 +27,7 @@ class UserFunctions extends APIOperation {
   }
 
   Future deleteUser(int id) async {
-    Response response = await super.delete("https://localhost:44362/api/loginform/$id");
+    Response response = await super.delete("https://localhost:7197/api/loginform/$id");
     if (response.statusCode == 200) {
       status = true;
     } else {
@@ -37,13 +37,16 @@ class UserFunctions extends APIOperation {
   }
 
   Future<List<User>> getUsers() async {
-    Response response = await super.fetchAll("https://localhost:44362/api/loginform");
+    Response response = await super.fetchAll("https://localhost:7197/api/loginform");
+    print("kir");
     List users = jsonDecode(response.body)['data'];
     return List.generate(
-        users.length,
-        (index) => User(
-            username: users[index]['username'],
-            id: users[index]['id'],
-            password: users[index]['password']));
+      users.length,
+      (index) => User(
+          username: users[index]['username'],
+          id: users[index]['id'],
+          password: users[index]['password'],
+          email: users[index]['password']),
+    );
   }
 }
